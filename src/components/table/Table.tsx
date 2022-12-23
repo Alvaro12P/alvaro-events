@@ -201,6 +201,17 @@ export default function Table() {
                 )
             }
           },
+          '& .current-date': {
+            bgcolor: (theme) =>
+              getBackgroundColor(theme.palette.info.main, theme.palette.mode),
+            '&:hover': {
+              bgcolor: (theme) =>
+                getHoverBackgroundColor(
+                  theme.palette.info.main,
+                  theme.palette.mode
+                )
+            }
+          },
           '& .deposit': {
             bgcolor: (theme) =>
               getBackgroundColor(
@@ -237,9 +248,16 @@ export default function Table() {
           experimentalFeatures={{ newEditingApi: true }}
           getRowClassName={({ row }) => {
             const now = DateTime.now()
+            const dateHour = DateTime.fromFormat(
+              `${row.date} ${row.endTime}`,
+              'dd/MM/yyyy hh:mm'
+            )
             const date = DateTime.fromFormat(row.date, 'dd/MM/yyyy')
+            console.log({ now, dateHour, date })
 
-            if (date.ts <= now.ts) return 'passed-date'
+            if (dateHour.ts <= now.ts) return 'passed-date'
+            else if (now.ts >= date.ts && now.ts <= dateHour.ts)
+              return 'current-date'
             else if (row.deposit) return 'deposit'
             else return 'no-deposit'
           }}
