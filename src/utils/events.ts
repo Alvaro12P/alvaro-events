@@ -22,7 +22,6 @@ type CreateData = {
 
 export class EventsTools {
   private static async handleResponse(r: Response) {
-    console.log(r.statusText)
     if (r.status === 200) return { error: false, data: await r.json() }
     else return { error: true, message: await r.text() }
   }

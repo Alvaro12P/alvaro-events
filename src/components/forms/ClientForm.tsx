@@ -34,18 +34,15 @@ export default function Clientform({ sendNotification }: ClientFormProps) {
     },
     validationSchema: clientSchema,
     onSubmit: async (values) => {
-      console.log(values)
       fetch('/api/clients', {
         method: 'POST',
         body: JSON.stringify(values)
       })
         .then((r) => {
-          console.log(r.statusText)
           if (r.status === 200) return r.json()
           else throw new Error(r.statusText)
         })
         .then((c) => {
-          console.log(c)
           setClients([c, ...clients])
           formik.resetForm()
           sendNotification(

@@ -253,7 +253,6 @@ export default function Table() {
               'dd/MM/yyyy hh:mm'
             )
             const date = DateTime.fromFormat(row.date, 'dd/MM/yyyy')
-            console.log({ now, dateHour, date })
 
             if (dateHour.ts <= now.ts) return 'passed-date'
             else if (now.ts >= date.ts && now.ts <= dateHour.ts)

@@ -31,12 +31,10 @@ export default function Login() {
     },
     validationSchema: userSchema,
     onSubmit: async (values) => {
-      console.log({ values })
-      const res = await signIn('credentials', {
+      await signIn('credentials', {
         ...values,
         redirect: false
       })
-      console.log(res)
     }
   })
 

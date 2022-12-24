@@ -1,4 +1,4 @@
-import { Avatar, Skeleton } from '@mui/material'
+import { Skeleton } from '@mui/material'
 import { useSession } from 'next-auth/react'
 import ToggleTheme from './ToggleTheme'
 import UserMenu from './UserMenu'
