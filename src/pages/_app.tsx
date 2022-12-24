@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider } from '@mui/material'
+import { createTheme, ThemeProvider, useMediaQuery } from '@mui/material'
 import * as locales from '@mui/material/locale'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
@@ -12,7 +12,7 @@ export const ColorModeCtx = React.createContext<{
 } | null>(null)
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [mode, setMode] = React.useState<'light' | 'dark'>('light')
+  const [mode, setMode] = React.useState<'light' | 'dark'>('dark')
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
@@ -22,6 +22,10 @@ export default function App({ Component, pageProps }: AppProps) {
     }),
     [mode]
   )
+
+  React.useEffect(() => {
+    document.body.classList.toggle('dark', mode === 'dark')
+  })
 
   const theme = React.useMemo(
     () =>
