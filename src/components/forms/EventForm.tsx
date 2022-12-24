@@ -60,11 +60,15 @@ export default function EventForm() {
     },
     validationSchema: eventSchema,
     onSubmit: async (values) => {
+      const date = values.date.toFormat('dd/MM/yyyy')
+      const startTime = values.startTime.toFormat('HH:mm')
+      const endTime = values.endTime.toFormat('HH:mm')
+
       const r = await EventsTools.create({
         ...values,
-        date: values.date.toFormat('dd/MM/yyyy'),
-        startTime: values.startTime.toFormat('HH:mm'),
-        endTime: values.endTime.toFormat('HH:mm')
+        date,
+        startTime,
+        endTime
       })
 
       if (r.error) enqueueSnackbar(r.message, { variant: 'error' })
@@ -78,9 +82,9 @@ export default function EventForm() {
               address: values.address,
               phone: client.phone,
               price: values.price,
-              date: values.date.toFormat('dd/MM/yyyy'),
-              startTime: values.startTime.toFormat('HH:mm'),
-              endTime: values.endTime.toFormat('HH:mm'),
+              date,
+              startTime,
+              endTime,
               deposit: values.deposit,
               km: values.km
             },
